@@ -22,7 +22,7 @@ pipeline {
  }
 	stage('Deploy to Docker Host') {
            steps {
-	    sh 'docker -H tcp://10.1.1.200:2375
+	    sh 'docker -H tcp://10.1.1.200:2375'
 	    sh 'docker -H tcp://10.1.1.200:2375 run --rm -dit --name webapp1 --hostname webapp1 -p 8000:80 gnapi9642/blueoceanprod:v1'
 	 }
 }
