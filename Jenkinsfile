@@ -10,8 +10,8 @@ pipeline {
 
 	stage('Build Docker Image') {
            steps {
-	    sh 'cd /var/lib/jenkins/workspace/blueoceanrepo_prod/dockertest1'
-	    sh 'cp /var/lib/jenkins/workspace/blueoceanrepo_prod/dockertest1/* /var/lib/jenkins/workspace/blueoceanrepo_prod'
+	    sh 'cd /var/lib/jenkins/workspace/blueocean_prod/dockertest1'
+	    sh 'cp /var/lib/jenkins/workspace/blueocean_prod/dockertest1/* /var/lib/jenkins/workspace/blueocean_prod'
 	    sh 'docker build -t gnapi9642/blueoceanprod:v1 .'
 	 }
  }
