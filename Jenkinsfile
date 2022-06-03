@@ -10,26 +10,25 @@ pipeline {
 
 	stage('Build Docker Image') {
            steps {
-	    sh 'cd /var/lib/jenkins/workspace/blueoceanrepo_prod/dockertest1'
-	    sh 'cp /var/lib/jenkins/workspace/blueoceanrepo_prod/dockertest1/* /var/lib/jenkins/workspace/blueoceanrepo_prod'
-	    sh 'docker build -t gnapi9642/pipelinetest:v2 .'
+	    sh 'cd /var/lib/jenkins/workspace/blueoceanrepo_main/dockertest1'
+	    sh 'cp /var/lib/jenkins/workspace/blueoceanrepo_main/dockertest1/* /var/lib/jenkins/workspace/blueoceanrepo_main'
+	    sh 'docker build -t gnapi9642/blueoceanmain:v1 .'
 	 }
  }
 	stage('Push Image to Docker Hub') {
            steps {
-	    sh	'docker push gnapi9642/pipelinetest:v2'
+	    sh	'docker push gnapi9642/blueoceanmain:v1'
 	 }
  }
 	stage('Deploy to Docker Host') {
            steps {
-	    sh 'docker -H tcp://10.1.1.200:2375 stop webapp1
-	    sh 'docker -H tcp://10.1.1.200:2375 run --rm -dit --name webapp1 --hostname webapp1 -p 9000:80 gnapi9642/pipelinetest:v2'
+	    sh 'docker -H tcp://10.1.1.200:2375 run --rm -dit --name webapp1 --hostname webapp1 -p 9000:80 gnapi9642/blueoceanmain:v1'
 	 }
 }
 	stage('Check WebApp Rechability') {
           steps {
 	   sh 'sleep 10s'
-	   sh 'curl http://ec2-54-160-149-85.compute-1.amazonaws.com:9000'
+	   sh 'curl http://ec2-3-90-207-126.compute-1.amazonaws.com:9000'
 	 }
 }
 }
